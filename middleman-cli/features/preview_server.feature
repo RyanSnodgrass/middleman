@@ -23,6 +23,18 @@ Feature: Run the preview server
       Inspect your site configuration at "http://
       """
 
+  @wip
+  Scenario: Start the server with defaults should not have deprecation warnings
+    When I run `middleman server` interactively
+    And I stop middleman if the output contains:
+      """
+      Inspect your site configuration
+      """
+    Then the output should not contain:
+      """
+      was loaded from the standard library, but will no longer be part of the default gems since Ruby 3.4.0
+      """
+
   Scenario: Start the server with defaults in verbose mode
     When I run `middleman server --verbose` interactively
     And I stop middleman if the output contains:
